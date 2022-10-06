@@ -281,9 +281,6 @@ func ValidateAuthReqRedirectURI(client Client, uri string, responseType oidc.Res
 			"Please ensure it is added to the request. If you have any questions, you may contact the administrator of the application.")
 	}
 	if strings.HasPrefix(uri, "https://") {
-		println(client.RedirectURIs())
-		println("-------------")
-		println(uri)
 		if !str.Contains(client.RedirectURIs(), uri) {
 			return oidc.ErrInvalidRequestRedirectURI().
 				WithDescription("(1) The requested redirect_uri is missing in the client configuration. " +

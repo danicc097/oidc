@@ -238,7 +238,10 @@ type idTokenClaims struct {
 	AuthenticationContextClassReference string   `json:"acr,omitempty"`
 	AuthenticationMethodsReferences     []string `json:"amr,omitempty"`
 	ClientID                            string   `json:"client_id,omitempty"`
-	UserInfo                            `json:"-"`
+	// required for bookstack
+	Email string `json:"email"`
+
+	UserInfo `json:"-"`
 
 	signatureAlg jose.SignatureAlgorithm
 }
@@ -349,6 +352,8 @@ func (t *idTokenClaims) MarshalJSON() ([]byte, error) {
 	}{
 		Alias: (*Alias)(t),
 	}
+	// required by bookstack in token
+	t.Email = "test-user@zitadel.ch"
 	if !time.Time(t.Expiration).IsZero() {
 		a.Expiration = time.Time(t.Expiration).Unix()
 	}
@@ -366,6 +371,7 @@ func (t *idTokenClaims) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
+	// TODO theres nothing shown for some reason
 	if t.UserInfo == nil {
 		return b, nil
 	}
