@@ -23,7 +23,7 @@ Whenever possible we tried to reuse / extend existing packages like `OAuth2 for 
 The most important packages of the library:
 <pre>
 /pkg
-    /client     clients using the OP for retrieving, exchanging and verifying tokens       
+    /client     clients using the OP for retrieving, exchanging and verifying tokens
         /rp     definition and implementation of an OIDC Relying Party (client)
         /rs     definition and implementation of an OAuth Resource Server (API)
     /op         definition and implementation of an OIDC OpenID Provider (server)
@@ -46,11 +46,11 @@ Check the `/example` folder where example code for different scenarios is locate
 # oidc discovery http://localhost:9998/.well-known/openid-configuration
 go run github.com/zitadel/oidc/example/server
 # start oidc web client
-CLIENT_ID=web CLIENT_SECRET=secret ISSUER=http://localhost:9998/ SCOPES="openid profile" PORT=9999 go run github.com/zitadel/oidc/example/client/app
+CLIENT_ID=web CLIENT_SECRET=secret ISSUER=http://localhost:9998 SCOPES="openid profile" PORT=9999 go run github.com/zitadel/oidc/example/client/app
 ```
 
 - open http://localhost:9999/login in your browser
-- you will be redirected to op server and the login UI 
+- you will be redirected to op server and the login UI
 - login with user `test-user` and password `verysecure`
 - the OP will redirect you to the client app, which displays the user info
 
@@ -82,7 +82,7 @@ For your convenience you can find the relevant standards linked below.
 
 ## Supported Go Versions
 
-For security reasons, we only support and recommend the use of one of the latest two Go versions (:white_check_mark:).  
+For security reasons, we only support and recommend the use of one of the latest two Go versions (:white_check_mark:).
 Versions that also build are marked with :warning:.
 
 | Version | Supported          |

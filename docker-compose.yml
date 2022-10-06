@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  oidcserver:
+    image: oidcserver:latest
+    container_name: oidcserver
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - traefik-net
+    ports:
+      - 9998:9998
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.oidcserver.rule=Host(`oidcserver.dev.localhost`) # && PathPrefix("/oidcserver")
+      # - traefik.http.routers.oidcserver.middlewares=strip_prefix,test-compress # check docs to exclude requests from compression
+      # - traefik.http.middlewares.test-compress.compress=true
+      # - traefik.http.middlewares.strip_prefix.stripprefix.prefixes=/oidcserver
+      - traefik.docker.network=traefik-net
+      - traefik.http.routers.oidcserver.entrypoints=websecure
+      - traefik.http.routers.oidcserver.tls=true
+      - traefik.http.services.oidcserver.loadbalancer.server.port=9998
+    restart: unless-stopped
+
+networks:
+  traefik-net:
+    name: traefik-net
+    external: true

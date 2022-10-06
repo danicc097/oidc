@@ -281,9 +281,12 @@ func ValidateAuthReqRedirectURI(client Client, uri string, responseType oidc.Res
 			"Please ensure it is added to the request. If you have any questions, you may contact the administrator of the application.")
 	}
 	if strings.HasPrefix(uri, "https://") {
+		println(client.RedirectURIs())
+		println("-------------")
+		println(uri)
 		if !str.Contains(client.RedirectURIs(), uri) {
 			return oidc.ErrInvalidRequestRedirectURI().
-				WithDescription("The requested redirect_uri is missing in the client configuration. " +
+				WithDescription("(1) The requested redirect_uri is missing in the client configuration. " +
 					"If you have any questions, you may contact the administrator of the application.")
 		}
 		return nil
@@ -292,7 +295,7 @@ func ValidateAuthReqRedirectURI(client Client, uri string, responseType oidc.Res
 		return validateAuthReqRedirectURINative(client, uri, responseType)
 	}
 	if !str.Contains(client.RedirectURIs(), uri) {
-		return oidc.ErrInvalidRequestRedirectURI().WithDescription("The requested redirect_uri is missing in the client configuration. " +
+		return oidc.ErrInvalidRequestRedirectURI().WithDescription("(2) The requested redirect_uri is missing in the client configuration. " +
 			"If you have any questions, you may contact the administrator of the application.")
 	}
 	if strings.HasPrefix(uri, "http://") {
@@ -321,7 +324,7 @@ func validateAuthReqRedirectURINative(client Client, uri string, responseType oi
 			"If you have any questions, you may contact the administrator of the application.")
 	}
 	if !isLoopback {
-		return oidc.ErrInvalidRequestRedirectURI().WithDescription("The requested redirect_uri is missing in the client configuration. " +
+		return oidc.ErrInvalidRequestRedirectURI().WithDescription("(3) The requested redirect_uri is missing in the client configuration. " +
 			"If you have any questions, you may contact the administrator of the application.")
 	}
 	for _, uri := range client.RedirectURIs() {
@@ -330,7 +333,7 @@ func validateAuthReqRedirectURINative(client Client, uri string, responseType oi
 			return nil
 		}
 	}
-	return oidc.ErrInvalidRequestRedirectURI().WithDescription("The requested redirect_uri is missing in the client configuration." +
+	return oidc.ErrInvalidRequestRedirectURI().WithDescription("(4) The requested redirect_uri is missing in the client configuration." +
 		" If you have any questions, you may contact the administrator of the application.")
 }
 

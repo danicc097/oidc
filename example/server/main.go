@@ -18,13 +18,19 @@ func main() {
 	storage := storage.NewStorage(storage.NewUserStore())
 
 	port := "9998"
-	router := exampleop.SetupServer(ctx, "http://localhost:"+port, storage)
+	// TODO CHANGE ISSUER as needed (localhost needs :port)
+	// issuer := "http://localhost:" + port
+	issuer := "https://oidcserver.dev.localhost" // ssl certificate error
+	router := exampleop.SetupServer(ctx, issuer, storage)
 
 	server := &http.Server{
 		Addr:    ":" + port,
 		Handler: router,
 	}
 	err := server.ListenAndServe()
+	// curl certificate error if runnning locally while bookstack is in container.
+	// err := server.ListenAndServeTLS("certificates/localhost.pem", "certificates/localhost-key.pem")
+
 	if err != nil {
 		log.Fatal(err)
 	}
