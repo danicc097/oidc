@@ -96,6 +96,7 @@ func renderLogin(w http.ResponseWriter, id string, err error) {
 	}
 }
 
+// TODO replicate this POST handler in arena auth backend
 func (l *login) checkLoginHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {

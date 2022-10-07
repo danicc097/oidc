@@ -1,1 +1,1 @@
-CLIENT_ID=web CLIENT_SECRET=secret ISSUER=http://localhost:9998 SCOPES="openid profile email" PORT=9999 go run github.com/zitadel/oidc/example/client/app
+CLIENT_ID=web CLIENT_SECRET=secret ISSUER="https://oidcserver.dev.localhost/oidc" SCOPES="openid profile email" PORT=9999 go run github.com/zitadel/oidc/example/client/app

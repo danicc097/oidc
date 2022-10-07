@@ -151,17 +151,18 @@ func NativeClient(id string, redirectURIs ...string) *Client {
 		}
 	}
 	return &Client{
-		id:                             id,
-		secret:                         "", // no secret needed (due to PKCE)
-		redirectURIs:                   redirectURIs,
-		applicationType:                op.ApplicationTypeNative,
-		authMethod:                     oidc.AuthMethodNone,
-		loginURL:                       defaultLoginURL,
-		responseTypes:                  []oidc.ResponseType{oidc.ResponseTypeCode},
-		grantTypes:                     []oidc.GrantType{oidc.GrantTypeCode, oidc.GrantTypeRefreshToken},
-		accessTokenType:                0,
-		devMode:                        false,
-		idTokenUserinfoClaimsAssertion: false,
+		id:              id,
+		secret:          "", // no secret needed (due to PKCE)
+		redirectURIs:    redirectURIs,
+		applicationType: op.ApplicationTypeNative,
+		authMethod:      oidc.AuthMethodNone,
+		loginURL:        defaultLoginURL,
+		responseTypes:   []oidc.ResponseType{oidc.ResponseTypeCode},
+		grantTypes:      []oidc.GrantType{oidc.GrantTypeCode, oidc.GrantTypeRefreshToken},
+		accessTokenType: 0,
+		devMode:         false,
+		// recommended to avoid unnecesary requests. also necessary for bookstack as it assumes claims were merged
+		idTokenUserinfoClaimsAssertion: true,
 		clockSkew:                      0,
 	}
 }
@@ -178,17 +179,18 @@ func WebClient(id, secret string, redirectURIs ...string) *Client {
 		}
 	}
 	return &Client{
-		id:                             id,
-		secret:                         secret,
-		redirectURIs:                   redirectURIs,
-		applicationType:                op.ApplicationTypeWeb,
-		authMethod:                     oidc.AuthMethodBasic,
-		loginURL:                       defaultLoginURL,
-		responseTypes:                  []oidc.ResponseType{oidc.ResponseTypeCode},
-		grantTypes:                     []oidc.GrantType{oidc.GrantTypeCode, oidc.GrantTypeRefreshToken},
-		accessTokenType:                0,
-		devMode:                        false,
-		idTokenUserinfoClaimsAssertion: false,
+		id:              id,
+		secret:          secret,
+		redirectURIs:    redirectURIs,
+		applicationType: op.ApplicationTypeWeb,
+		authMethod:      oidc.AuthMethodBasic,
+		loginURL:        defaultLoginURL,
+		responseTypes:   []oidc.ResponseType{oidc.ResponseTypeCode},
+		grantTypes:      []oidc.GrantType{oidc.GrantTypeCode, oidc.GrantTypeRefreshToken},
+		accessTokenType: 0,
+		devMode:         false,
+		// recommended to avoid unnecesary requests. also necessary for bookstack as it assumes claims were merged
+		idTokenUserinfoClaimsAssertion: true,
 		clockSkew:                      0,
 	}
 }
