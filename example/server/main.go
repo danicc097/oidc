@@ -20,7 +20,7 @@ func main() {
 	port := "9998"
 	// TODO CHANGE ISSUER as needed (localhost needs :port)
 	// issuer := "http://localhost:" + port
-	issuer := "https://oidcserver.dev.localhost" // ssl certificate error
+	issuer := "https://oidcserver.dev.localhost/oidc" // ssl certificate error
 	router := exampleop.SetupServer(ctx, issuer, storage)
 
 	server := &http.Server{

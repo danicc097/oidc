@@ -13,10 +13,9 @@ services:
       - 9998:9998
     labels:
       - traefik.enable=true
-      - traefik.http.routers.oidcserver.rule=Host(`oidcserver.dev.localhost`) # && PathPrefix("/oidcserver")
-      # - traefik.http.routers.oidcserver.middlewares=strip_prefix,test-compress # check docs to exclude requests from compression
-      # - traefik.http.middlewares.test-compress.compress=true
-      # - traefik.http.middlewares.strip_prefix.stripprefix.prefixes=/oidcserver
+      - traefik.http.routers.oidcserver.rule=Host(`oidcserver.dev.localhost`) && PathPrefix("/oidc")
+      - traefik.http.routers.oidcserver.middlewares=strip_prefix_1 # check docs to exclude requests from compression
+      - traefik.http.middlewares.strip_prefix_1.stripprefix.prefixes=/oidc
       - traefik.docker.network=traefik-net
       - traefik.http.routers.oidcserver.entrypoints=websecure
       - traefik.http.routers.oidcserver.tls=true

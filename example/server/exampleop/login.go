@@ -12,6 +12,7 @@ const (
 	queryAuthRequestID = "authRequestID"
 )
 
+// if on subpath, add to action
 var loginTmpl, _ = template.New("login").Parse(`
 	<!DOCTYPE html>
 	<html>
@@ -20,7 +21,7 @@ var loginTmpl, _ = template.New("login").Parse(`
 			<title>Login</title>
 		</head>
 		<body style="display: flex; align-items: center; justify-content: center; height: 100vh;">
-			<form method="POST" action="/login/username" style="height: 200px; width: 200px;">
+			<form method="POST" action="/oidc/login/username" style="height: 200px; width: 200px;">
 
 				<input type="hidden" name="id" value="{{.ID}}">
 

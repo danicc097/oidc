@@ -9,11 +9,11 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
-	"golang.org/x/text/language"
-	"gopkg.in/square/go-jose.v2"
-
+	"github.com/zitadel/logging"
 	httphelper "github.com/zitadel/oidc/pkg/http"
 	"github.com/zitadel/oidc/pkg/oidc"
+	"golang.org/x/text/language"
+	"gopkg.in/square/go-jose.v2"
 )
 
 const (
@@ -59,9 +59,21 @@ var allowAllOrigins = func(_ string) bool {
 	return true
 }
 
+func LoggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Do stuff here
+		logging.Info(r.RequestURI)
+
+		// Call the next handler, which can be another middleware in the chain, or the final handler.
+		next.ServeHTTP(w, r)
+	})
+}
+
 func CreateRouter(o OpenIDProvider, interceptors ...HttpInterceptor) *mux.Router {
 	intercept := buildInterceptor(interceptors...)
+
 	router := mux.NewRouter()
+	router.Use(LoggingMiddleware)
 	router.Use(handlers.CORS(
 		handlers.AllowCredentials(),
 		handlers.AllowedHeaders([]string{"authorization", "content-type"}),
@@ -117,17 +129,19 @@ type endpoints struct {
 
 // NewOpenIDProvider creates a provider. The provider provides (with HttpHandler())
 // a http.Router that handles a suite of endpoints (some paths can be overridden):
-//  /healthz
-//  /ready
-//  /.well-known/openid-configuration
-//  /oauth/token
-//  /oauth/introspect
-//  /callback
-//  /authorize
-//  /userinfo
-//  /revoke
-//  /end_session
-//  /keys
+//
+//	/healthz
+//	/ready
+//	/.well-known/openid-configuration
+//	/oauth/token
+//	/oauth/introspect
+//	/callback
+//	/authorize
+//	/userinfo
+//	/revoke
+//	/end_session
+//	/keys
+//
 // This does not include login. Login is handled with a redirect that includes the
 // request ID. The redirect for logins is specified per-client by Client.LoginURL().
 // Successful logins should mark the request as authorized and redirect back to to

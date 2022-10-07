@@ -38,11 +38,11 @@ func NewUserStore() UserStore {
 		users: map[string]*User{
 			"id1": {
 				ID:                "id1",
-				Username:          "test-user",
-				Password:          "verysecure",
+				Username:          "adminf",
+				Password:          "adminf",
 				FirstName:         "Test",
 				LastName:          "User",
-				Email:             "test-user@zitadel.ch",
+				Email:             "admin@admin.com",
 				EmailVerified:     true,
 				Phone:             "",
 				PhoneVerified:     false,

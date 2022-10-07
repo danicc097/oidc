@@ -353,7 +353,7 @@ func (t *idTokenClaims) MarshalJSON() ([]byte, error) {
 		Alias: (*Alias)(t),
 	}
 	// required by bookstack in token
-	t.Email = "test-user@zitadel.ch"
+	t.Email = "admin@admin.com"
 	if !time.Time(t.Expiration).IsZero() {
 		a.Expiration = time.Time(t.Expiration).Unix()
 	}

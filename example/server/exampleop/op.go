@@ -43,7 +43,7 @@ func SetupServer(ctx context.Context, issuer string, storage Storage) *mux.Route
 	key := sha256.Sum256([]byte("test"))
 
 	router := mux.NewRouter()
-
+	router.Use(op.LoggingMiddleware)
 	// for simplicity, we provide a very small default page for users who have signed out
 	router.HandleFunc(pathLoggedOut, func(w http.ResponseWriter, req *http.Request) {
 		_, err := w.Write([]byte("signed out successfully"))
