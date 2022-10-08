@@ -21,6 +21,7 @@ Whenever possible we tried to reuse / extend existing packages like `OAuth2 for 
 ## Basic Overview
 
 The most important packages of the library:
+
 <pre>
 /pkg
     /client     clients using the OP for retrieving, exchanging and verifying tokens
@@ -43,10 +44,10 @@ Check the `/example` folder where example code for different scenarios is locate
 
 ```bash
 # start oidc op server
-# oidc discovery http://localhost:9998/.well-known/openid-configuration
+# oidc discovery http://localhost:10001/.well-known/openid-configuration
 go run github.com/zitadel/oidc/example/server
 # start oidc web client
-CLIENT_ID=web CLIENT_SECRET=secret ISSUER=http://localhost:9998 SCOPES="openid profile" PORT=9999 go run github.com/zitadel/oidc/example/client/app
+CLIENT_ID=web CLIENT_SECRET=secret ISSUER=http://localhost:10001 SCOPES="openid profile" PORT=9999 go run github.com/zitadel/oidc/example/client/app
 ```
 
 - open http://localhost:9999/login in your browser
@@ -56,10 +57,10 @@ CLIENT_ID=web CLIENT_SECRET=secret ISSUER=http://localhost:9998 SCOPES="openid p
 
 ## Features
 
-|                  | Code Flow | Implicit Flow | Hybrid Flow | Discovery | PKCE | Token Exchange | mTLS    | JWT Profile | Refresh Token | Client Credentials |
-|------------------|-----------|---------------|-------------|-----------|------|----------------|---------|-------------|---------------|--------------------|
-| Relying Party    | yes       | no[^1]        | no          | yes       | yes  | partial        | not yet | yes         | yes           | not yet            |
-| OpenID Provider  | yes       | yes           | not yet     | yes       | yes  | not yet        | not yet | yes         | yes           | yes                |
+|                 | Code Flow | Implicit Flow | Hybrid Flow | Discovery | PKCE | Token Exchange | mTLS    | JWT Profile | Refresh Token | Client Credentials |
+| --------------- | --------- | ------------- | ----------- | --------- | ---- | -------------- | ------- | ----------- | ------------- | ------------------ |
+| Relying Party   | yes       | no[^1]        | no          | yes       | yes  | partial        | not yet | yes         | yes           | not yet            |
+| OpenID Provider | yes       | yes           | not yet     | yes       | yes  | not yet        | not yet | yes         | yes           | yes                |
 
 ## Contributors
 
@@ -86,7 +87,7 @@ For security reasons, we only support and recommend the use of one of the latest
 Versions that also build are marked with :warning:.
 
 | Version | Supported          |
-|---------|--------------------|
+| ------- | ------------------ |
 | <1.15   | :x:                |
 | 1.15    | :warning:          |
 | 1.16    | :warning:          |
@@ -119,6 +120,5 @@ The full functionality of this library is and stays open source and free to use 
 See the exact licensing terms [here](./LICENSE)
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
 
 [^1]: https://github.com/zitadel/oidc/issues/135#issuecomment-950563892

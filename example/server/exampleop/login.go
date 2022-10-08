@@ -106,6 +106,8 @@ func (l *login) checkLoginHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("username")
 	password := r.FormValue("password")
 	id := r.FormValue("id")
+	// will set passwordChecked = true if successful, else the AuthorizeCallback will fail
+	// since the user is not logged in
 	err = l.authenticate.CheckUsernamePassword(username, password, id)
 	if err != nil {
 		renderLogin(w, id, err)

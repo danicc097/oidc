@@ -1,15 +1,15 @@
 FROM golang:1.15-buster as builder
 
-WORKDIR /app
+WORKDIR /go/src
 
-COPY go.mod .
-COPY go.sum .
-RUN go get -d -v ./...
-
+COPY ./go.* .
+RUN go mod download
 COPY . .
 ENV CGO_ENABLED=0
+RUN --mount=type=cache,target=/root/.cache/go-build \
+  go build -o /go/src/server ./example/server
 
-RUN go build -a -installsuffix cgo -o /usr/local/bin/server ./example/server
+FROM alpine:3.15 AS runtime
 
-EXPOSE 9998
-CMD ["/usr/local/bin/server"]
+COPY --from=builder /go/src/server ./
+

@@ -69,7 +69,7 @@ func SetupServer(ctx context.Context, issuer string, storage Storage) *mux.Route
 	// we register the http handler of the OP on the root, so that the discovery endpoint (/.well-known/openid-configuration)
 	// is served on the correct path
 	//
-	// if your issuer ends with a path (e.g. http://localhost:9998/custom/path/),
+	// if your issuer ends with a path (e.g. http://localhost:10001/custom/path/),
 	// then you would have to set the path prefix (/custom/path/)
 	router.PathPrefix("/").Handler(provider.HttpHandler())
 

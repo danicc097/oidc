@@ -17,7 +17,7 @@ func main() {
 	// in this example it will be handled in-memory
 	storage := storage.NewStorage(storage.NewUserStore())
 
-	port := "9998"
+	port := "10001"
 	// TODO CHANGE ISSUER as needed (localhost needs :port)
 	// issuer := "http://localhost:" + port
 	issuer := "https://oidcserver.dev.localhost/oidc" // ssl certificate error
